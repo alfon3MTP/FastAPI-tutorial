@@ -11,20 +11,30 @@ BANDS = [
     {'id': 4, 'name': 'Cafe Quijano', 'genre': 'Blues', 'albums': 
         [{'title': 'La taberna de Buda', 'release_date': '2001-12-14'}]
     },
-    {'id': 5, 'name': 'The Police', 'genre': 'Rock'},
+    {'id': 5, 'name': 'The Police', 'genre': 'Rock', 'albums': 
+        [{'title': 'Certifiable', 'release_date': '2007-12-11'}]
+    },
 ]
 
 
 
 @app.get('/bands')
-async def bands(genre: GenreURLChoices | None) -> list[Band]:
+async def bands(
+    genre: GenreURLChoices | None,
+    has_albums: bool = False
+) -> list[Band]:
+    
+    band_list = [Band(**b) for b in BANDS]
     
     if genre:
-        return [
-            Band(**b) for b in BANDS if b['genre'].lower() == genre.value
+        band_list = [
+            b for b in band_list if b.genre.lower() == genre.value
         ]
-    
-    return [Band(**b) for b in BANDS] 
+        
+    if has_albums:
+        band_list = [b for b in band_list if b.albums]
+            
+    return band_list 
     
 @app.get('/bands/{band_id}')
 async def bands(band_id: int) -> Band:
