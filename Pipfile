@@ -8,6 +8,7 @@ pandas = "*"
 fastapi = {extras = ["standard"], version = "*"}
 uvicorn = {extras = ["standard"], version = "*"}
 pydantic = "*"
+sqlmodel = "*"
 
 [dev-packages]
 
