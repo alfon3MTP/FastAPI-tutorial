@@ -2,7 +2,7 @@ from enum import Enum
 from pydantic import BaseModel, field_validator
 from datetime import date
 from sqlmodel import SQLModel, Field, Relationship
-from typing import Optional
+from typing import List, Optional
 
 class GenreURLChoices(Enum):
     ROCK = 'rock'
@@ -16,25 +16,28 @@ class GenreChoices(Enum):
     ACUSTIC = 'Acustic'
     BLUES = 'Blues'
 
-class AlbumsBase(SQLModel):
+## Base Models
+class AlbumBase(SQLModel):
     title: str
     release_date: date
-    band_id: int | None = Field(default=None, foreign_key="band.id")
     
-class Album(AlbumsBase, table=True):
-    id: int = Field(default=None, primary_key=True)
-    band: "Band" = Relationship(back_populates="albums")
-        
 class BandBase(SQLModel):
     name: str
     genre: GenreChoices
-    
+
+## Pydantic Check
 class BandCreate(BandBase):
-    albums: list[AlbumsBase] | None = None
+    albums: Optional[List[AlbumBase]] = None
     
     @field_validator('genre', mode="before")
     def title_case_genre(cls, value):
         return value.title()
+
+## Model Classes
+class Album(AlbumBase, table=True):
+    id: int = Field(default=None, primary_key=True)
+    band_id: Optional[int] = Field(default=None, foreign_key="band.id")
+    band: "Band" = Relationship(back_populates="albums")
 
 class Band(BandBase, table=True):
     id: int = Field(default=None, primary_key=True)

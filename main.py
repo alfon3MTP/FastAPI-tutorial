@@ -60,7 +60,7 @@ async def create_band(
 
     session.add(band)
 
-    if band.albums:
+    if band_data.albums:
         for album in band_data.albums:
             print(band, album)
             album_obj = Album(

@@ -1,12 +1,18 @@
 
-
-
+## Use VS extension: REST Client 
+##
 POST http://127.0.0.1:8000/bands
 content-type: application/json
 
 {
-  "name": "Prueba",
-  "genre": "Pop"
+  "name": "Amaral",
+  "genre": "POp",
+  "albums": [
+    {
+      "title": "Estrella de mar",
+      "release_date": "2002-05-04"
+    }
+  ]
 }
 
 ###
