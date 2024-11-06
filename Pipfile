@@ -9,6 +9,7 @@ fastapi = {extras = ["standard"], version = "*"}
 uvicorn = {extras = ["standard"], version = "*"}
 pydantic = "*"
 sqlmodel = "*"
+alembic = "*"
 
 [dev-packages]
 
