@@ -1,0 +1,17 @@
+
+
+
+POST http://127.0.0.1:8000/bands
+content-type: application/json
+
+{
+  "name": "Prueba",
+  "genre": "Pop"
+}
+
+###
+
+GET http://127.0.0.1:8000/bands?genre=rock
+
+
+
