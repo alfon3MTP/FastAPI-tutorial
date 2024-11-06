@@ -24,6 +24,7 @@ class AlbumBase(SQLModel):
 class BandBase(SQLModel):
     name: str
     genre: GenreChoices
+    date_formed: date | None
 
 ## Pydantic Check
 class BandCreate(BandBase):
@@ -42,6 +43,4 @@ class Album(AlbumBase, table=True):
 class Band(BandBase, table=True):
     id: int = Field(default=None, primary_key=True)
     albums: list[Album] = Relationship(back_populates="band")
-    
-    
 

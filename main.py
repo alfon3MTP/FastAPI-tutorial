@@ -2,17 +2,11 @@ from fastapi import FastAPI, HTTPException, Path, Query, Depends
 from models import GenreURLChoices, BandCreate, Band, Album
 from typing import Annotated
 from sqlmodel import Session, select
-from contextlib import asynccontextmanager
-from db import init_db, get_session
+from db import get_session
 
-import uvicorn
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    init_db()
-    yield
     
-app = FastAPI(lifespan=lifespan)
+app = FastAPI()
     
 
 @app.get('/bands')
